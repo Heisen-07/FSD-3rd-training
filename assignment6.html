@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dynamic Multiplication Tables</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+    .even {
+      color: green;
+      font-weight: bold;
+    }
+    .odd {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Generate Multiplication Tables</h2>
+  
+  <label>Enter First Number: </label>
+  <input type="number" id="num1">
+  <br><br>
+  
+  <label>Enter Second Number: </label>
+  <input type="number" id="num2">
+  <br><br>
+  
+  <button onclick="generateTables()">Generate</button>
+  
+  <div id="output"></div>
+  
+  <h3>Even Numbers</h3>
+  <p id="even"></p>
+
+  <h3>Odd Numbers</h3>
+  <p id="odd"></p>
+  
+  <script>
+    function generateTables() {
+      let n1 = parseInt(document.getElementById("num1").value);
+      let n2 = parseInt(document.getElementById("num2").value);
+
+      if (isNaN(n1) || isNaN(n2)) {
+        alert("Please enter both numbers!");
+        return;
+      }
+
+      let evenArr = [];
+      let oddArr = [];
+      let tableHTML = "<table><tr><th>" + n1 + " Table</th><th>" + n2 + " Table</th></tr>";
+
+      for (let i = 1; i <= 10; i++) {
+        let mul1 = n1 * i;
+        let mul2 = n2 * i;
+
+        tableHTML += "<tr>";
+        tableHTML += "<td class='" + (mul1 % 2 === 0 ? "even" : "odd") + "'>" + n1 + " × " + i + " = " + mul1 + "</td>";
+        tableHTML += "<td class='" + (mul2 % 2 === 0 ? "even" : "odd") + "'>" + n2 + " × " + i + " = " + mul2 + "</td>";
+        tableHTML += "</tr>";
+
+        // Categorizing EVEN and ODD
+        if (mul1 % 2 === 0) {
+          evenArr.push(mul1);
+        } else {
+          oddArr.push(mul1);
+        }
+
+        if (mul2 % 2 === 0) {
+          evenArr.push(mul2);
+        } else {
+          oddArr.push(mul2);
+        }
+      }
+
+      tableHTML += "</table>";
+
+      document.getElementById("output").innerHTML = tableHTML;
+      document.getElementById("even").innerText = evenArr.join(", ");
+      document.getElementById("odd").innerText = oddArr.join(", ");
+    }
+  </script>
+</body>
+</html>
